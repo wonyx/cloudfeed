@@ -1,0 +1,10 @@
+insert into feed (id,link) values('2', 'http://feeds.feedburner.com/CoinDesk');
+insert into feed (id,link) values('4', 'http://blog.golang.org/feeds/posts/default');
+insert into feed (id,link) values('5', 'http://feeds.feedburner.com/smittenkitchen');
+insert into feed (id,link) values('8', 'http://www.nytimes.com/services/xml/rss/nyt/Travel.xml');
+insert into feed (id,link) values('9', 'http://feeds.feedburner.com/PSBlog');
+insert into feed (id,link) values('10', 'https://www.hashicorp.com/blog/products/terraform/feed.xml');
+insert into feed (id,link) values('11', 'http://feeds.feedburner.com/entrepreneur/latest');
+insert into feed (id,link) values('13', 'http://feeds.feedburner.com/blogspot/gJZg');
+insert into feed (id,link) values('14', 'http://www.nytimes.com/services/xml/rss/nyt/MediaandAdvertising.xml');
+insert into feed (id,link) values('15', 'https://blog.cloudflare.com/rss');

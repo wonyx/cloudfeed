@@ -1,0 +1,13 @@
+{
+  "version": "5",
+  "dialect": "sqlite",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "5",
+      "when": 1712626499278,
+      "tag": "0000_skinny_madrox",
+      "breakpoints": true
+    }
+  ]
+}

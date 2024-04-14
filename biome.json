@@ -16,7 +16,9 @@
       "**/coverage/**/*",
       "**/out/**/*",
       "**/storybook-static/**/*",
-      "**/test-results/**/*"
+      "**/test-results/**/*",
+      "**/.wrangler/**/*",
+      "**/.vercel/**/*"
     ]
   },
   "organizeImports": {
@@ -57,14 +59,18 @@
     "rules": {
       "suspicious": {
         "noExplicitAny": "warn",
-        "noArrayIndexKey": "off"
+        "noArrayIndexKey": "off",
+        "noEmptyInterface": "warn"
       },
       "a11y": {
-        "noSvgWithoutTitle": "off"
+        "noSvgWithoutTitle": "off",
+        "useButtonType": "warn",
+        "useHtmlLang": "warn"
       },
       "complexity": {
         "noBannedTypes": "off",
-        "noForEach": "warn"
+        "noForEach": "warn",
+        "useLiteralKeys": "off"
       },
       "security": {
         "noDangerouslySetInnerHtml": "warn"
@@ -74,7 +80,8 @@
         "noUselessElse": "warn",
         "useTemplate": "off",
         "noUnusedTemplateLiteral": "off",
-        "useSelfClosingElements": "warn"
+        "useSelfClosingElements": "warn",
+        "noNonNullAssertion": "warn"
       },
       "performance": {
         "noAccumulatingSpread": "warn"
