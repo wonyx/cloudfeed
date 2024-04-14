@@ -11,7 +11,13 @@ The app uses `@cf/baai/bge-large-en-v1.5` model to generate text embeddings for 
 ## Demo
 
 <!-- Share a link to your deployed solution on Workers or Pages, and add a screenshot or video embed of your app here. -->
+Cloudflare Pages Link
+https://cloudfeed-app.pages.dev/
 
+Demo video
+
+
+{% embed https://youtu.be/4ZC6EXAnXvQ %}
 ## My Code
 
 <!-- Show us the code! Share a public link to your repo and be sure to include a README file with installation instructions. We also encourage you to add a license for your code.  --> 
@@ -21,10 +27,37 @@ This is a link to the [repo](https://github.com/wonyx/cloudfeed).
 
 <!-- Tell us about your process, the task types and models you used, what you learned, anything you are particularly proud of, what you hope to do next, etc. -->
 ### Process
-These are overview of the process:
+I saw an article about the Cloudflare AI Challenge and decided to participate in this.
+First, I tried to get a better understanding of Cloudflare by reading the blogs posted on Developer Week. I was a bit intimidated because I only knew a little about Cloudflare.
+I had only used Cloudflare Pages to deploy a static Nextjs site.
+
+- What tasks can Workers AI handle?
+- What kind of system configuration would be suitable?
+- What is the difference between Pages and Workers?
+
+I learned a lot about the differences between Pages and Workers.
+Next, what tasks are suitable for AI to solve? I asked myself.
+And I decided to create an RSS Feed Reader.
+Here's why.
+
+- RSS provides an interface that makes it easy for machines to gather information.
+- Since I use an RSS reader every day, I thought it would be nice if AI could suggest articles of my interest for me.
+
+And then, I started to develop the app.
+
+First, I develop a simple pipeline to fetch feed entries and store them in the D1 using Queue and Cron Triggers.
+Second, I tried to evalutate models that are suitable for task suggesting feed entries.
+I tried to use Text Generation Models such as `llama-2-7b-chat-fp16`, `mistral-7b-instruct-v0.2`, `gemma-7b-it` but it is difficult to suggest related feed entries.
+
+So I decided to use `@cf/baai/bge-large-en-v1.5` model to generate text embeddings for each feed entries and then use cosine similarity to suggest related entries.
+
+### Overview
+This is an overview of the part of system that use Workers AI and Vectorize.
+I think this is not RAG but I reffered [the RAG Architecture](https://developers.cloudflare.com/reference-architecture/diagrams/ai/ai-rag/).
+
 #### Indexing Feed Entries
-![](./assets/index.jpg)
-1. Cron trigger worker to fetche feed periodically.
+![Indexing Feed Entries Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z9c1b3z8gom5ihmq4we4.jpg)
+1. Cron trigger worker to fetch feed periodically.
 2. send feed entries to the Worker through the Queue.
 3. dequeue feed entries from the Queue.
 4. calculate feed entry vectors from the title and description using the Worker AI.
@@ -32,7 +65,8 @@ These are overview of the process:
 6. store feed entries and feed vectors into the D1.
 
 #### Suggesting Related Entries
-![](./assets/query.jpg)
+
+![Suggesting Related Entries Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f56wow75htigssv8rbph.jpg)
 1. User read a feed entry, then browser requests to the Pages to get related entries.
 2. Pages requests to the Worker to get related entries.
 3. Workers get the feed entry vectors user read from the D1.
@@ -40,7 +74,7 @@ These are overview of the process:
 5. Workers filter entries by similarity score and get feed entry ids from metadata, get similar feed entries by ids from the D1, and then return them to the Pages.
 6. Pages return related entries.
 
-### Learned
+### What I Learned
 What I learned from this project is following:
 
 - How to use Cloudflare Tech Stacks, such as:
@@ -62,6 +96,7 @@ What I learned from this project is following:
 
     Difficult to predict behavior compared to full-text search engines. It is difficult to determine if the similarity results are correct.
 However, it can resolve similarities that full-text search engines cannot. Full-text search engines can also calculate similarity based on tokens, but with a different approach. Probably need to provide synonyms, etc.
+    Also difficult to determine the similarity threshold. I set the threshold to 0.66, but I'm not sure if it's the best value.
 
 ### Proud of
 Actually, English is not my first language, so I'm proud of submitting `MY FIRST POST` in English.
@@ -72,7 +107,8 @@ Following are the next steps I plan to take:
 
 - Using RPC between the Pages and Workers.
 - Try to build RAG Architecture.
-
+- Improve quality.
+  - I did not implement these error handling, test code, basic features such as add feed URLs, pagination, and does not work with some feed xml, etc.
 <!-- Let us know if your project utilized multiple models per task and/or if your project used three or more task types. If so, you may qualify for our additional prize categories! If not, please remove this section. -->
 
 <!-- Team Submissions: Please pick one member to publish the submission and credit teammates by listing their DEV usernames directly in the body of the post. -->
@@ -84,4 +120,4 @@ Following are the next steps I plan to take:
 ## Thank you for
 - `dev.to` users reading this post.
 - Cloudflare for hosting this challenge.
-- Github Copilot for helping me everything such as writing this post, coding, etc!
+- Github Copilot helping me everything such as writing this post, coding, etc!
