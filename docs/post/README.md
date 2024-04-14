@@ -11,7 +11,13 @@ The app uses `@cf/baai/bge-large-en-v1.5` model to generate text embeddings for 
 ## Demo
 
 <!-- Share a link to your deployed solution on Workers or Pages, and add a screenshot or video embed of your app here. -->
+Cloudflare Pages Link
+https://cloudfeed-app.pages.dev/
 
+Demo video
+
+
+{% embed https://youtu.be/4ZC6EXAnXvQ %}
 ## My Code
 
 <!-- Show us the code! Share a public link to your repo and be sure to include a README file with installation instructions. We also encourage you to add a license for your code.  --> 
@@ -50,7 +56,7 @@ This is an overview of the part of system that use Workers AI and Vectorize.
 I think this is not RAG but I reffered [the RAG Architecture](https://developers.cloudflare.com/reference-architecture/diagrams/ai/ai-rag/).
 
 #### Indexing Feed Entries
-![](./assets/index.jpg)
+![Indexing Feed Entries Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z9c1b3z8gom5ihmq4we4.jpg)
 1. Cron trigger worker to fetch feed periodically.
 2. send feed entries to the Worker through the Queue.
 3. dequeue feed entries from the Queue.
@@ -59,7 +65,8 @@ I think this is not RAG but I reffered [the RAG Architecture](https://developers
 6. store feed entries and feed vectors into the D1.
 
 #### Suggesting Related Entries
-![](./assets/query.jpg)
+
+![Suggesting Related Entries Diagram](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f56wow75htigssv8rbph.jpg)
 1. User read a feed entry, then browser requests to the Pages to get related entries.
 2. Pages requests to the Worker to get related entries.
 3. Workers get the feed entry vectors user read from the D1.
@@ -100,7 +107,8 @@ Following are the next steps I plan to take:
 
 - Using RPC between the Pages and Workers.
 - Try to build RAG Architecture.
-
+- Improve quality.
+  - I did not implement these error handling, test code, basic features such as add feed URLs, pagination, and does not work with some feed xml, etc.
 <!-- Let us know if your project utilized multiple models per task and/or if your project used three or more task types. If so, you may qualify for our additional prize categories! If not, please remove this section. -->
 
 <!-- Team Submissions: Please pick one member to publish the submission and credit teammates by listing their DEV usernames directly in the body of the post. -->
