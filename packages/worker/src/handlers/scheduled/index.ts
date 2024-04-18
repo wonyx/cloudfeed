@@ -8,7 +8,7 @@ export const scheduled: ExportedHandlerScheduledHandler<Env> = async (
 ) => {
   console.debug('cron started', JSON.stringify(event))
   switch (event.cron) {
-    case '0 0/3 * * *': {
+    case '0 */3 * * *': {
       await env.MY_QUEUE.send({
         type: 'syncFeeds',
         payload: {},
